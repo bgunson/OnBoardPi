@@ -11,7 +11,7 @@ from src.injector_service import InjectorService
 class Container():
 
     def __init__(self):
-        self.sio_server = AsyncServer(cors_allowed_origins='*',json=obdio,async_mode='asgi')
+        self.sio_server = AsyncServer(cors_allowed_origins='*', json=obdio, async_mode='asgi')
         self.config_service = ConfigurationService(self.sio_server)
         self.obd_service = OBDService(self.sio_server, self.config_service)
         self.injector_service = InjectorService(self.sio_server, self.config_service, self.obd_service)

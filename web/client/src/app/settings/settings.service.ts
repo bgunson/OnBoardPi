@@ -26,4 +26,11 @@ export class SettingsService {
   updateSettings(updated: Settings) {
     this.socket.emit('settings:update', updated);
   }
+
+  reset() {
+    if (window.confirm("Are you sure you want to do this?")) {
+      this.socket.emit('settings:reset')
+    }
+  }
+
 }

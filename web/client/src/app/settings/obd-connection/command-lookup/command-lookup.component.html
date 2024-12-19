@@ -1,44 +1,45 @@
 <shared-filter [size]="12" (keyup)="applyFilter($event)"></shared-filter>
-    <mat-form-field appearance="outline" class="mode-select">
-        <mat-select [disableOptionCentering]="true" [(ngModel)]="modeIndex">
-            <mat-option [value]="0">Base commands</mat-option>
-            <mat-option [value]="1">Mode 1</mat-option>
-            <mat-option [value]="2">Mode 2</mat-option>
-            <mat-option [value]="3">Mode 3</mat-option>
-            <mat-option [value]="4">Mode 4</mat-option>
-            <mat-option [value]="5">Mode 5</mat-option>
-            <mat-option [value]="6">Mode 6</mat-option>
-            <mat-option [value]="7">Mode 7</mat-option>
-            <mat-option [value]="8">Mode 8</mat-option>
-            <mat-option [value]="9">Mode 9</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-card style="padding: 0px;" class="mat-elevation-z2">
-        <ng-container *ngIf="filteredCommands$ | async as commands">
-            <ng-container *ngIf="commands[modeIndex] as modeCmds; else none">
-                <ng-container *ngIf="modeCmds.length > 0; else none">
-                    <mat-accordion>
-                        <mat-expansion-panel *ngFor="let cmd of modeCmds; last as last">
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    {{ cmd.name }}
-                                </mat-panel-title>
-                                <mat-panel-description *ngIf="supportedCommands$ | async as supported">
-                                    <span style="flex: 1 1 auto"></span>
-                                    <mat-icon style="color:#4caf50"  *ngIf="supported.includes(cmd.name)">check_circle</mat-icon>
-                                    <mat-icon color="warn" *ngIf="!supported.includes(cmd.name)">cancel</mat-icon>
-                                </mat-panel-description>
-                            </mat-expansion-panel-header>
-                            <pre>{{ cmd | json }}</pre>
-                        </mat-expansion-panel>
-                        <mat-divider class="app-divider"></mat-divider>
-                    </mat-accordion>
-                </ng-container>
+<mat-form-field appearance="outline" class="mode-select">
+    <mat-select [disableOptionCentering]="true" [(ngModel)]="modeIndex">
+        <mat-option [value]="0">Base commands</mat-option>
+        <mat-option [value]="1">Mode 1</mat-option>
+        <mat-option [value]="2">Mode 2</mat-option>
+        <mat-option [value]="3">Mode 3</mat-option>
+        <mat-option [value]="4">Mode 4</mat-option>
+        <mat-option [value]="5">Mode 5</mat-option>
+        <mat-option [value]="6">Mode 6</mat-option>
+        <mat-option [value]="7">Mode 7</mat-option>
+        <mat-option [value]="8">Mode 8</mat-option>
+        <mat-option [value]="9">Mode 9</mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-card style="padding: 0px;" class="mat-elevation-z2">
+    <ng-container *ngIf="filteredCommands$ | async as commands">
+        <ng-container *ngIf="commands[modeIndex] as modeCmds; else none">
+            <ng-container *ngIf="modeCmds.length > 0; else none">
+                <mat-accordion>
+                    <mat-expansion-panel *ngFor="let cmd of modeCmds; last as last">
+                        <mat-expansion-panel-header *ngIf="cmd">
+                            <mat-panel-title>
+                                {{ cmd.name }}
+                            </mat-panel-title>
+                            <mat-panel-description *ngIf="supportedCommands$ | async as supported">
+                                <span style="flex: 1 1 auto"></span>
+                                <mat-icon style="color:#4caf50"
+                                    *ngIf="supported.includes(cmd.name)">check_circle</mat-icon>
+                                <mat-icon color="warn" *ngIf="!supported.includes(cmd.name)">cancel</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <pre>{{ cmd | json }}</pre>
+                    </mat-expansion-panel>
+                    <mat-divider class="app-divider"></mat-divider>
+                </mat-accordion>
             </ng-container>
         </ng-container>
-    </mat-card>
-    <ng-template #none>
-        <mat-list-item>
-            No commands for this mode.
-        </mat-list-item>
-    </ng-template>
+    </ng-container>
+</mat-card>
+<ng-template #none>
+    <mat-list-item>
+        No commands for this mode.
+    </mat-list-item>
+</ng-template>

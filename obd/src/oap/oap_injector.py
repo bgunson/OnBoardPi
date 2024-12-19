@@ -129,7 +129,7 @@ class OAPInjector(InjectorBase):
             list: List of commands in order as defined in `/home/pi/.openauto/config/openauto_obd_pids.ini`. Example: ['RPM', 'SPEED', ...] 
                     Note: some commands may be None if the injector could not cross reference it with python-obd.
         """
-        return [obd.commands[c] for c in self.__commands_names if obd.commands.has_name(c)]
+        return [obd.commands[c] for c in self.__commands_names if c is not None and obd.commands.has_name(c)]
     
 
     @property

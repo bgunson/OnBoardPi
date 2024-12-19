@@ -182,13 +182,13 @@ class OBDService():
             async def sid_emit(r):
                 await sio.emit("watching", r, to=sid)
 
-            obd_commands = [obd.commands[c] for c in commands if obd.commands.has_name(c)]
+            obd_commands = [obd.commands[c] for c in commands if c is not None and obd.commands.has_name(c)]
             await self.watch_commands(obd_commands, ResponseCallback(sid, sid_emit, is_async=True))
 
         
         @sio.event
         async def unwatch(sid, commands):
-            obd_commands = [obd.commands[c] for c in commands if obd.commands.has_name(c)]
+            obd_commands = [obd.commands[c] for c in commands if c is not None and obd.commands.has_name(c)]
             await self.unwatch_commands(obd_commands, sid)
 
 

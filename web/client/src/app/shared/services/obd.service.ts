@@ -115,11 +115,9 @@ export class OBDService {
     if (!this._watching$) {
       this._watching$ = this.socket.fromEvent<OBDResponse>('watching').pipe(
         scan((acc: ResponseSet, val: OBDResponse) => {
-          var responseValue: ResponseSet = {
-            [val.command.name]: val
-          }
-          return { ...acc, ...responseValue };
-        }),
+          acc[val.command.name] = val;
+          return acc;
+        }, {} as ResponseSet),
         share()
       );
     }

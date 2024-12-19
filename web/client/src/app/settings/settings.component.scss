@@ -33,3 +33,14 @@
     vertical-align: middle;
     color: grey;
 }
+
+.reset-button {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.reset-button button {
+    flex: 1;
+    max-width: 100%;
+}
